@@ -247,14 +247,97 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Diagramy Voronoi}
+  \begin{definition}
+    Tesselacja to pokrycie płaszczyzny za pomocą wielokątów przylegających do siebie oraz nie nakładających się.
+  \end{definition}
+
+  \begin{definition}
+    Diagram Voronoi to \textbf{podział płaszczyzny na obszary w oparciu o odległość do określonego zbioru punktów}. Każdy obszar składa się z punktów bliższych do jednego punktu z danego zbioru niż do jakiegokolwiek innego punktu ze zbioru. Jest to przykład tesselacji płaszczyzny.
+  \end{definition}
+
+  \pause
+  Diagramy te zostały nazwane na cześć matematyka Gieorgija Woronoj'a, rosyjskiego matematyka ukraińskiego pochodzenia, który opisał je w 1908 roku.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagramy Voronoi}
+  Niech $P = \{p_1, p_2, \ldots, p_n\}$, gdzie $p_i \in \mathbb{R}^2, n \in \mathbb{N}$.
+  Punkty ze zbioru $P$ nazywać będziemy centrami.
+
+  \begin{definition}
+    Komórką diagramu Voronoi dla punktu $p_i$ nazywamy
+    \begin{center}
+      $V_P(p_i) = \{x : \forall_{j \neq i} d(x, p_i) \leq d(x, p_j) \}$
+    \end{center}
+    gdzie $d$ jest funkcją odległości między punktami.
+  \end{definition}
+
+  \pause
+  \begin{definition}
+    Podział płaszczyzny na $n$ komórek Voronoi $V_P(p_1), V_P(p_2), \ldots, V_P(p_n)$ nazywamy diagramem Voronoi dla zbioru punktów $P$. Oznaczamy go jako $Vor(P)$.
+  \end{definition}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagramy Voronoi - przykład}
+  \begin{center}
+    \begin{figure}
+      \includegraphics<1>[scale=0.4]{voronoi-animation-0}
+      \includegraphics<2>[scale=0.4]{voronoi-animation-1}
+      \includegraphics<3>[scale=0.4]{voronoi-animation-2}
+      \caption{Przykład diagramu Voronoi dla metryki euklidesowej}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagramy Voronoi - porównanie metryk}
+
+  Do najpopularniejszych metryk używanych w diagramach Voronoi należą:
+  \begin{itemize}
+    \item Metryka euklidesowa \\
+      $d[(a_1, a_2), (b_1, b_2)] = \sqrt{(a_1 - b_1)^2 + (a_2 - b_2)^2}$
+    \item Metryka Manhattan \\
+      $d[(a_1, a_2), (b_1, b_2)] = |a_1 - b_1| + |a_2 - b_2|$
+    \item Metryka Czebyszewa \\
+      $d[(a_1, a_2), (b_1, b_2)] = \max(|a_1 - b_1|, |a_2 - b_2|)$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagramy Voronoi - porównanie metryk}
+  \begin{center}
+    \begin{figure}
+      \includegraphics<1>[scale=0.35]{voronoi_euklidesowa}
+      \includegraphics<2>[scale=0.35]{voronoi_manhattan}
+      \includegraphics<3>[scale=0.35]{voronoi_czebyszewa}
+      \only<1>{\caption{Diagram Voronoi dla metryki euklidesowej}}
+      \only<2>{\caption{Diagram Voronoi dla metryki Manhattan}}
+      \only<3>{\caption{Diagram Voronoi dla metryki Czebyszewa}}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
   \frametitle{Źródła}
-  \begin{thebibliography}{6}
+  \begin{thebibliography}{9}
     \bibitem{1} \url{https://mathworld.wolfram.com/Triangulation.html}
     \bibitem{2} \url{https://en.wikipedia.org/wiki/Triangulation_(disambiguation)}
     \bibitem{3} \url{https://en.wikipedia.org/wiki/Planar_graph\#Maximal_planar_graphs}
     \bibitem{4} \url{https://en.wikipedia.org/wiki/Chordal_graph}
     \bibitem{5} \url{https://en.wikipedia.org/wiki/Simplex}
     \bibitem{6} \url{https://facultyweb.kennesaw.edu/mlavrov/courses/graph-theory/lecture21.pdf}
+    \bibitem{7} \url{https://mathworld.wolfram.com/Goldner-HararyGraph.html}
+    \bibitem{8} \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
+    \bibitem{9} \url{https://en.wikipedia.org/wiki/Tessellation}
+  \end{thebibliography}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Źródła}
+  \begin{thebibliography}{1}
+    \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
   \end{thebibliography}
 \end{frame}
 

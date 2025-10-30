@@ -45,3 +45,6 @@
 .bak 
 .mtc
 build/
+
+__pycache__/
+.venv/
