@@ -6,6 +6,8 @@
 \usepackage{tikz}
 \usepackage{graphicx}
 \usepackage{xcolor}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \graphicspath{ {./img/} }
 
 \title{Triangulacja i diagramy Voronoi}
@@ -320,6 +322,99 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Diagramy Voronoi - algorytmy tworzenia}
+  Do najpopularniejszych sposobów tworzenia diagramów Voronoi należą:
+  \begin{itemize}
+    \item \color<1>{violet}{\textbf{Rastrowy brute force} - dla każdej komórki siatki obliczana jest odległość do każdego punktu ze zbioru $P$, a komórka jest przypisywana do najbliższego punktu. Czas działania: $O(mn)$, gdzie $m$ to liczba komórek siatki, a $n$ to liczba punktów w zbiorze $P$.}
+      \pause
+    \item \color<2>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm przemiatania - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przeciągnięte, tworzony jest diagram Voronoi.}
+      \pause
+    \item \color<3>{violet}{\textbf{Obliczania triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Vorornoi na jej podstawie. Złożoność: $O(n \log n)$.}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagramy Voronoi - Rastrowy brute force}
+
+  \begin{algorithm}[H]
+    \caption{Rastrowy brute force dla diagramu Voronoi}
+    \begin{algorithmic}
+      \Function{voronoiBruteForce}{siatka, punkty}
+      \For{each komórka $c$ in siatka}
+      \State $minimalnyDystans \gets \infty$
+      \State $najbliższyPunkt \gets null$
+      \For{each punkt $p$ in punkty}
+      \State $dystans \gets d(c, p)$
+      \If{$dystans < minimalnyDystans$}
+      \State $minimalnyDystans \gets dystans$
+      \State $najbliższyPunkt \gets p$
+      \EndIf
+      \EndFor
+      \State przypisz komórkę $c$ do $najbliższyPunkt$
+      \EndFor
+      \State \Return siatka
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Diagramy Voronoi - Rastrowy brute force}
+
+  \begin{center}
+    \begin{figure}
+      \begin{tikzpicture}[scale=0.5]
+        \foreach \x in {0,1,...,19} {
+          \foreach \y in {0,1,...,9} {
+            \fill[gray!20] (\x, \y) rectangle (\x+1, \y+1);
+          }
+        }
+
+        \foreach \x in {0,1,...,19} {
+          \foreach \y in {0,1,...,9} {
+            \pgfmathsetmacro{\distRed}{sqrt((\x+0.5-3)^2 + (\y+0.5-7)^2)}
+            \pgfmathsetmacro{\distBlue}{sqrt((\x+0.5-9)^2 + (\y+0.5-8)^2)}
+            \pgfmathsetmacro{\distGreen}{sqrt((\x+0.5-15)^2 + (\y+0.5-6)^2)}
+            \pgfmathsetmacro{\distYellow}{sqrt((\x+0.5-13)^2 + (\y+0.5-2)^2)}
+            \pgfmathsetmacro{\distPurple}{sqrt((\x+0.5-6)^2 + (\y+0.5-3)^2)}
+
+            \pgfmathsetmacro{\minDist}{min(min(min(\distRed, \distBlue), min(\distGreen, \distYellow)), \distPurple)}
+
+            \ifdim \minDist pt = \distRed pt
+            \fill[red!50] (\x, \y) rectangle (\x+1, \y+1);
+            \else\ifdim \minDist pt = \distBlue pt
+            \fill[blue!50] (\x, \y) rectangle (\x+1, \y+1);
+            \else\ifdim \minDist pt = \distGreen pt
+            \fill[green!50] (\x, \y) rectangle (\x+1, \y+1);
+            \else\ifdim \minDist pt = \distYellow pt
+            \fill[yellow!50] (\x, \y) rectangle (\x+1, \y+1);
+            \else
+            \fill[purple!50] (\x, \y) rectangle (\x+1, \y+1);
+            \fi\fi\fi\fi
+          }
+        }
+
+        \fill[red!80!black] (3, 7) circle (0.4);
+        \draw[white, very thick] (3, 7) circle (0.4);
+
+        \fill[blue!80!black] (9, 8) circle (0.4);
+        \draw[white, very thick] (9, 8) circle (0.4);
+
+        \fill[green!60!black] (15, 6) circle (0.4);
+        \draw[white, very thick] (15, 6) circle (0.4);
+
+        \fill[yellow!80!orange] (13, 2) circle (0.4);w
+        \draw[black, very thick] (13, 2) circle (0.4);
+
+        \fill[purple!80!black] (6, 3) circle (0.4);
+        \draw[white, very thick] (6, 3) circle (0.4);
+      \end{tikzpicture}
+      \caption{Wizualizacja działania algorytmu rastrowego brute force dla siatki 20x10 oraz 5 punktów. Wykorzystano metrykę euklidesową.}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
   \frametitle{Źródła}
   \begin{thebibliography}{9}
     \bibitem{1} \url{https://mathworld.wolfram.com/Triangulation.html}
@@ -338,6 +433,7 @@
   \frametitle{Źródła}
   \begin{thebibliography}{1}
     \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
+    \bibitem{2} \url{https://pl.frwiki.wiki/wiki/Algorithme_de_Fortune}
   \end{thebibliography}
 \end{frame}
 
