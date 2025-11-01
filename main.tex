@@ -258,7 +258,7 @@
   \end{definition}
 
   \pause
-  Diagramy te zostały nazwane na cześć matematyka Gieorgija Woronoj'a, rosyjskiego matematyka ukraińskiego pochodzenia, który opisał je w 1908 roku.
+  Diagramy te zostały nazwane na cześć matematyka Gieorgija Woronoja, rosyjskiego matematyka ukraińskiego pochodzenia, który opisał je w 1908 roku.
 \end{frame}
 
 \begin{frame}
@@ -326,7 +326,7 @@
   \begin{itemize}
     \item \color<1>{violet}{\textbf{Rastrowy brute force} - dla każdej komórki siatki obliczana jest odległość do każdego punktu ze zbioru $P$, a komórka jest przypisywana do najbliższego punktu. Czas działania: $O(mn)$, gdzie $m$ to liczba komórek siatki, a $n$ to liczba punktów w zbiorze $P$.}
       \pause
-    \item \color<2>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm przemiatania - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przeciągnięte, tworzony jest diagram Voronoi.}
+    \item \color<2>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm zamiatający - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przetworzone, tworzony jest diagram Voronoi.}
       \pause
     \item \color<3>{violet}{\textbf{Obliczanie triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Voronoi na jej podstawie. Złożoność: $O(n \log n)$.}
   \end{itemize}
@@ -423,7 +423,7 @@
   \begin{definitions}
     \textbf{Linia zamiatająca} (\textit{sweep line}) - linia prosta, przesuwająca się wzdłuż płaszczyzny, przetwarzająca punkty wejściowe.
 
-    \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez punty równoległe od linii zamiatającej i najbliższe z punktów już przetworzonych. Składa się z łuków parabolicznych.
+    \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez punkty równoodległe od linii zamiatającej i najbliższe z punktów już przetworzonych. Składa się z łuków parabolicznych.
 
     \textbf{Zdarzenia punktowe} (\textit{point events}) - miejsca, w których linia zamiatająca napotyka punkty wejściowe.
 
@@ -457,7 +457,7 @@
 \begin{frame}
   \frametitle{Algorytm Fortune'a - zasada działania}
   \begin{itemize}
-    \item W trakcie przesuwania lini zamiatającej, łuki paraboliczne tworzące linię plażową będą się zmieniać. Gdy \textbf{linia zamiatająca osiągnie punkt, w którym trzy łuki paraboliczne stykają się w jednym punkcie, środkowy łuk zniknie}, a dwa pozostałe połączą się. Zdarzenie to nazywane jest zdarzeniem wierzchołkowym.
+    \item W trakcie przesuwania linii zamiatającej, łuki paraboliczne tworzące linię plażową będą się zmieniać. Gdy \textbf{linia zamiatająca osiągnie punkt, w którym trzy łuki paraboliczne stykają się w jednym punkcie, środkowy łuk zniknie}, a dwa pozostałe połączą się. Zdarzenie to nazywane jest zdarzeniem wierzchołkowym.
       \pause
     \item Efektem zdarzenia wierzchołkowego jest \textbf{utworzenie nowego wierzchołka diagramu Voronoi}, ponieważ punkt styku trzech łuków parabolicznych jest równoodległy od trzech punktów wejściowych.
   \end{itemize}
@@ -642,7 +642,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Triangulacja Delaunaya - zwiazek z diagramem Voronoi}
+  \frametitle{Triangulacja Delaunaya - związek z diagramem Voronoi}
   \begin{definition}
     \textbf{Graf dualny} to graf utworzony z innego grafu poprzez umieszczenie wierzchołka w każdej ścianie oryginalnego grafu oraz połączenie tych wierzchołków krawędziami, jeśli ich odpowiadające ściany w oryginalnym grafie sąsiadują ze sobą.
   \end{definition}
@@ -654,7 +654,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Triangulacja Delaunaya - zwiazek z diagramem Voronoi}
+  \frametitle{Triangulacja Delaunaya - związek z diagramem Voronoi}
   \begin{center}
     \begin{figure}
       \includegraphics<1>[scale=0.19]{delaunay-1}
@@ -667,7 +667,7 @@
 
 \begin{frame}
   \frametitle{Zastosowania}
-  Triangulacja i diagramy Voronoi znajdują zastosowanie między innymi  w:
+  Triangulacja i diagramy Voronoi znajdują zastosowanie między innymi w:
   \begin{itemize}
     \item Planowaniu chirurgicznym i tworzeniu modeli 3D narządów
     \item Epidemiologii przestrzennej i analizie ognisk chorób
