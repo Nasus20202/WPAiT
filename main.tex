@@ -329,7 +329,7 @@
       \pause
     \item \color<2>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm przemiatania - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przeciągnięte, tworzony jest diagram Voronoi.}
       \pause
-    \item \color<3>{violet}{\textbf{Obliczania triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Vorornoi na jej podstawie. Złożoność: $O(n \log n)$.}
+    \item \color<3>{violet}{\textbf{Obliczanie triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Vorornoi na jej podstawie. Złożoność: $O(n \log n)$.}
   \end{itemize}
 \end{frame}
 
@@ -415,6 +415,39 @@
 \end{frame}
 
 \begin{frame}
+  \frametitle{Algorytm Fortune'a}
+  Algorytm Fortune'a to \textbf{algorytm zamiatający} (\textit{sweep line algorithm}), pozwalający na efektywne tworzenie diagramów Voronoi w czasie $O(n \log n)$ wykorzystując $O(n)$ pamięci dla $n$ punktów wejściowych.
+
+  \pause
+  Pojęcia kluczowe dla zrozumienia algorytmu:
+  \begin{itemize}
+    \item \textbf{Linia zamiatająca} (\textit{sweep line}) - linia prosta, przesuwająca się wzdłuż płaszczyzny, przetwarzająca punkty wejściowe.
+    \item \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez łuki parabol, reprezentująca granicę między obszarami już przetworzonymi a tymi, które jeszcze nie zostały przetworzone.
+    \item \textbf{Zdarzenia} - punkty, w których linia zamiatająca napotyka punkty lub miejsca, w których zaniknie łuk paraboliczny na linii plażowej.
+  \end{itemize}
+  \begin{center}
+    \includegraphics[scale=0.5]{sweep-beach-line.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - przykład}
+  \begin{center}
+    \begin{figure}
+      \includegraphics<1>[scale=0.8]{fortunes-animation-0}
+      \includegraphics<2>[scale=0.8]{fortunes-animation-1}
+      \includegraphics<3>[scale=0.8]{fortunes-animation-2}
+      \includegraphics<4>[scale=0.8]{fortunes-animation-3}
+      \includegraphics<5>[scale=0.8]{fortunes-animation-4}
+      \includegraphics<6>[scale=0.8]{fortunes-animation-5}
+      \includegraphics<7>[scale=0.8]{fortunes-animation-6}
+      \includegraphics<8>[scale=0.8]{fortunes-animation-7}
+      \caption{Przykład działania algorytmu Fortune'a}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
   \frametitle{Źródła}
   \begin{thebibliography}{9}
     \bibitem{1} \url{https://mathworld.wolfram.com/Triangulation.html}
@@ -431,9 +464,10 @@
 
 \begin{frame}
   \frametitle{Źródła}
-  \begin{thebibliography}{1}
+  \begin{thebibliography}{2}
     \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
-    \bibitem{2} \url{https://pl.frwiki.wiki/wiki/Algorithme_de_Fortune}
+    \bibitem{2} \url{https://jacquesheunis.com/post/fortunes-algorithm/}
+    \bibitem{3} \url{https://cs.sfu.ca/~binay/813.2011/Fortune.pdf}
   \end{thebibliography}
 \end{frame}
 
