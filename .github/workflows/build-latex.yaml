@@ -25,7 +25,7 @@ jobs:
 
       - name: Upload PDF as artifact (for PRs)
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: LaTeX Document
           path: main.pdf
