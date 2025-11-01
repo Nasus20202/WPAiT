@@ -13,12 +13,11 @@
 \title{Triangulacja i diagramy Voronoi}
 \author{Krzysztof Nasuta}
 \date{Gdańsk, 2025}
+\setbeamertemplate{footline}[frame number]
 
 \begin{document}
 
 \frame{\titlepage}
-
-% Triangulacja w geometrii
 
 \begin{frame}
   \frametitle{Triangulacja w geometrii}
@@ -510,8 +509,8 @@
 
   \begin{center}
     \begin{figure}
-      \includegraphics[scale=0.8]{beach-line-binary-tree}
-      \caption{Wizualizacja linii plażowej jako drzewa binarnego}
+      \includegraphics[scale=0.4]{beach-line-binary-tree}
+      \caption{Proces dodawania reprezentacji nowej paraboli do drzewa binarnego opisującego linię plażową}
     \end{figure}
   \end{center}
 \end{frame}
@@ -522,9 +521,92 @@
   \begin{algorithm}[H]
     \caption{Algorytm Fortune'a}
     \begin{algorithmic}
-      \State Initialize event queue with site events
+      \Function{voronoiFortune}{punkty}
+      \State $kolejkaZdarzen \gets$ zdarzenia punktowe utworzone z $punkty$
+      \State $liniaPlazowa \gets$ puste drzewo binarne
+      \State $diagramVoronoi \gets$ pusty diagram Voronoi
+
+      \While {kolejkaZdarzen nie jest pusta}
+      \State $zdarzenie \gets$ usuń pierwsze zdarzenie z $kolejkaZdarzen$
+      \If{$zdarzenie$ jest zdarzeniem punktowym}
+      \State dodajParabolę($zdarzenie$)
+      \Else
+      \State usuńParabolę($zdarzenie$)
+      \EndIf
+      \EndWhile
+      \EndFunction
     \end{algorithmic}
   \end{algorithm}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - pseudokod}
+
+  \begin{algorithm}[H]
+    \caption{Algorytm Fortune'a - dodajParabolę}
+    \begin{algorithmic}
+      \Function{dodajParabolę}{$zdarzenie$}
+      \If{$liniaPlazowa$ jest pusta} dodaj nową parabolę do $liniaPlazowa$ i zakończ funkcję \EndIf
+      \State
+      \State $parabola$ $\gets$ parabola znajdująca się pod punktem $zdarzenie$
+      \State \textbf{usuń} z $kolejkaZdarzen$ wszelkie zdarzenia wierzchołkowe związane z $parabola$
+      \State
+      \State \textbf{podziel} $parabola$ na dwa mniejsze łuki i dodaj nową parabolę między nimi do $liniaPlazowa$
+      \State sprawdź czy dla nowych łuków \textbf{istnieją zdarzenia wierzchołkowe} (czyli jeden z łuków zanika, bo odległość od 3 punktów jest równa) i dodaj je do $kolejkaZdarzen$
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - pseudokod}
+
+  \begin{algorithm}[H]
+    \caption{Algorytm Fortune'a - usuńParabolę}
+    \begin{algorithmic}
+      \Function{usuńParabolę}{$zdarzenie$}
+      \State $lewaParabola, prawaParabola \gets$ parabolę po lewej i prawej stronie paraboli znikającej w zdarzeniu $zdarzenie$
+      \State \textbf{usuń} z $kolejkaZdarzen$ wszelkie zdarzenia wierzchołkowe związane z $lewaParabola$ i $prawaParabola$
+      \State
+      \State $srodekOkregu \gets$ punkt styku łuków parabolicznych w zdarzeniu $zdarzenie$
+      \State \textbf{dodaj} nowy wierzchołek do $diagramVoronoi$ w $srodekOkregu$
+      \State
+      \State \textbf{usuń} parabolę znikającą w zdarzeniu $zdarzenie$ z $liniaPlazowa$
+      \State sprawdź czy dla $lewaParabola$ i $prawaParabola$ \textbf{istnieje zdarzenie wierzchołkowe} i dodaj je do $kolejkaZdarzen$
+      \EndFunction
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - oszacowanie złożoności i dowód}
+
+  \begin{theorem}
+    Każdy wierzchołek diagramu Voronoi jest stopnia trzeciego. \qed
+  \end{theorem}
+
+  \begin{theorem}
+    Algorytm Fortune'a tworzy diagram Voronoi dla $n$ punktów wejściowych w czasie $O(n \log n)$ wykorzystując $O(n)$ pamięci.
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - oszacowanie złożoności i dowód}
+  \begin{small}
+    \begin{proof}
+      Niech $V$ będzie liczbą wierzchołków, $E$ liczbą krawędzi, a $N$ liczbą ścian diagramu Voronoi.
+
+      Ponieważ diagram Voronoi posiada nieskończone ściany, \textbf{dodajemy do niego sztuczny wierzchołek} i łączymy go z wszystkimi nieskończonymi krawędziami, tworząc nowy graf planarny. Z \textbf{wzoru Eulera dla grafów planarnych} mamy $V - E + N = 2$. W takim razie $(V + 1) - E + N = 2$.
+      \pause
+
+      Każdy \textbf{wierzchołek diagramu Voronoi ma stopień co najmniej 3}, więc $3(V + 1) \leq 2E$. Po prostych przekształceniach otrzymujemy $V \leq 2N - 5$ oraz $E \leq 3N - 6$.
+
+      \pause
+      Liczba zdarzeń punktowych wynosi dokładnie $N$, a liczba zdarzeń wierzchołkowych $V$, którą możemy górnie ograniczyć przez $2N - 5$. Zatem \textbf{łączna liczba zdarzeń możemy oszacować przez $O(n)$}.
+
+      Każde zdarzenie wywołuje stałą liczbę operacji $c$ na drzewie binarnym i kolejce priorytetowej. \textbf{Operacje te mają złożoność $O(\log n)$}. Zatem całkowity czas działania algorytmu wynosi $O(n \log n)$.
+    \end{proof}
+  \end{small}
 \end{frame}
 
 \begin{frame}
@@ -532,7 +614,7 @@
   \begin{thebibliography}{9}
     \bibitem{1} \url{https://mathworld.wolfram.com/Triangulation.html}
     \bibitem{2} \url{https://en.wikipedia.org/wiki/Triangulation_(disambiguation)}
-    \bibitem{3} \url{https://en.wikipedia.org/wiki/Planar_graph\#Maximal_planar_graphs}
+    \bibitem{3} \url{https://en.wikipedia.org/wiki/Planar_graph}
     \bibitem{4} \url{https://en.wikipedia.org/wiki/Chordal_graph}
     \bibitem{5} \url{https://en.wikipedia.org/wiki/Simplex}
     \bibitem{6} \url{https://facultyweb.kennesaw.edu/mlavrov/courses/graph-theory/lecture21.pdf}
@@ -544,7 +626,7 @@
 
 \begin{frame}
   \frametitle{Źródła}
-  \begin{thebibliography}{2}
+  \begin{thebibliography}{4}
     \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
     \bibitem{2} \url{https://jacquesheunis.com/post/fortunes-algorithm/}
     \bibitem{3} \url{https://cs.sfu.ca/~binay/813.2011/Fortune.pdf}
