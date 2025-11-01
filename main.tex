@@ -328,7 +328,7 @@
       \pause
     \item \color<2>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm przemiatania - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przeciągnięte, tworzony jest diagram Voronoi.}
       \pause
-    \item \color<3>{violet}{\textbf{Obliczanie triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Vorornoi na jej podstawie. Złożoność: $O(n \log n)$.}
+    \item \color<3>{violet}{\textbf{Obliczanie triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Voronoi na jej podstawie. Złożoność: $O(n \log n)$.}
   \end{itemize}
 \end{frame}
 
@@ -402,7 +402,7 @@
         \fill[green!60!black] (15, 6) circle (0.4);
         \draw[white, very thick] (15, 6) circle (0.4);
 
-        \fill[yellow!80!orange] (13, 2) circle (0.4);w
+        \fill[yellow!80!orange] (13, 2) circle (0.4);
         \draw[black, very thick] (13, 2) circle (0.4);
 
         \fill[purple!80!black] (6, 3) circle (0.4);
@@ -419,17 +419,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Algorytm Fortune'a - pojęcia}
-  Pojęcia kluczowe dla zrozumienia algorytmu:
-  \begin{itemize}
-    \item \textbf{Linia zamiatająca} (\textit{sweep line}) - linia prosta, przesuwająca się wzdłuż płaszczyzny, przetwarzająca punkty wejściowe.
-    \item \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez punty równoodległe od linii zamiatającej i najbliżesz z punktów już przetworzonych. Składa się z łuków parabolicznych.
-    \item Zdarzenia
-      \begin{itemize}
-        \item \textbf{Zdarzenia punktowe} (\textit{point events}) - miejsca, w których linia zamiatająca napotyka punkty wejściowe.
-        \item \textbf{Zdarzenia wierzchołkowe} (\textit{vertex events}) - miejsca, w których zanikają łuki paraboliczne na linii plażowej.
-      \end{itemize}
-  \end{itemize}
+  \frametitle{Algorytm Fortune'a - definicje}
+  \begin{definitions}
+    \textbf{Linia zamiatająca} (\textit{sweep line}) - linia prosta, przesuwająca się wzdłuż płaszczyzny, przetwarzająca punkty wejściowe.
+
+    \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez punty równoległe od linii zamiatającej i najbliższe z punktów już przetworzonych. Składa się z łuków parabolicznych.
+
+    \textbf{Zdarzenia punktowe} (\textit{point events}) - miejsca, w których linia zamiatająca napotyka punkty wejściowe.
+
+    \textbf{Zdarzenia wierzchołkowe} (\textit{vertex events}) - miejsca, w których zanikają łuki paraboliczne na linii plażowej.
+  \end{definitions}
+
   \begin{center}
     \begin{figure}
       \includegraphics[scale=0.4]{sweep-beach-line}
@@ -610,28 +610,124 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Źródła}
-  \begin{thebibliography}{9}
-    \bibitem{1} \url{https://mathworld.wolfram.com/Triangulation.html}
-    \bibitem{2} \url{https://en.wikipedia.org/wiki/Triangulation_(disambiguation)}
-    \bibitem{3} \url{https://en.wikipedia.org/wiki/Planar_graph}
-    \bibitem{4} \url{https://en.wikipedia.org/wiki/Chordal_graph}
-    \bibitem{5} \url{https://en.wikipedia.org/wiki/Simplex}
-    \bibitem{6} \url{https://facultyweb.kennesaw.edu/mlavrov/courses/graph-theory/lecture21.pdf}
-    \bibitem{7} \url{https://mathworld.wolfram.com/Goldner-HararyGraph.html}
-    \bibitem{8} \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
-    \bibitem{9} \url{https://en.wikipedia.org/wiki/Tessellation}
-  \end{thebibliography}
+  \frametitle{Triangulacja Delaunaya}
+
+  \begin{definitions}
+    \textbf{Otoczka wypukła} zbioru punktów to najmniejszy wypukły wielokąt, który zawiera wszystkie punkty ze zbioru.
+
+    \textbf{Triangulacja Delaunaya} (\textit{Delone}) zbioru punktów dzieli ich otoczkę wypukłą na trójkąty w taki sposób, że \textbf{żaden punkt ze zbioru nie znajduje się wewnątrz okręgu opisanego na żadnym z trójkątów triangulacji}.
+  \end{definitions}
+
+  Nazwa Triangulacji Delaunaya pochodzi od rosyjskiego matematyka Borysa Delaunaya, który opisał ją w 1934 roku.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Triangulacja Delaunaya}
+  W triangulacji Delaunaya dla zbioru punktów $P$:
+  \begin{itemize}
+    \item Każdy trójkąt ma swoje wierzchołki w punktach ze zbioru $P$.
+    \item Dla każdego trójkąta, okrąg opisany na nim nie zawiera żadnego innego punktu ze zbioru $P$ wewnątrz siebie.
+    \item Podział taki maksymalizuje minimalny kąt wszystkich trójkątów w triangulacji.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Triangulacja Delaunaya - przykład}
+  \begin{center}
+    \begin{figure}
+      \includegraphics[scale=0.19]{delaunay-0}
+      \caption{Przykład triangulacji Delaunaya dla zbioru punktów}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Triangulacja Delaunaya - zwiazek z diagramem Voronoi}
+  \begin{definition}
+    \textbf{Graf dualny} to graf utworzony z innego grafu poprzez umieszczenie wierzchołka w każdej ścianie oryginalnego grafu oraz połączenie tych wierzchołków krawędziami, jeśli ich odpowiadające ściany w oryginalnym grafie sąsiadują ze sobą.
+  \end{definition}
+
+  \pause
+  \begin{theorem}
+    Triangulacja Delaunaya dla zbioru punktów $P$ jest grafem dualnym diagramu Voronoi utworzonego z tego samego zbioru punktów $P$. \qed
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Triangulacja Delaunaya - zwiazek z diagramem Voronoi}
+  \begin{center}
+    \begin{figure}
+      \includegraphics<1>[scale=0.19]{delaunay-1}
+      \includegraphics<2>[scale=0.19]{delaunay-2}
+      \only<1>{\caption{Triangulacja Delaunaya z zaznaczonymi na czerwono środkami okręgów opisanych na trójkątach}}
+      \only<2>{\caption{Graf dualny triangulacji Delaunaya, czyli diagram Voronoi - zaznaczony na czerwono}}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Zastosowania}
+  Triangulacja i diagramy Voronoi znajdują zastosowanie między innymi  w:
+  \begin{itemize}
+    \item Planowaniu chirurgicznym i tworzeniu modeli 3D narządów
+    \item Epidemiologii przestrzennej i analizie ognisk chorób
+    \item Przedstawianiu struktury kosmicznej we wszechświecie
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Zastosowania}
+  \begin{center}
+    \only<1>{
+      \begin{figure}
+        \includegraphics[scale=0.3]{bone-triangulation}
+        \caption{Triangulacja wykorzystana do przybliżenia kształtu kości ludzkiej w celu planowania chirurgicznego}
+      \end{figure}
+    }
+    \only<2>{
+      \begin{figure}
+        \includegraphics[scale=0.4]{cholera-voronoi}
+        \caption{Diagram Voronoi wykorzystany do analizy przestrzennej ogniska cholery w Londynie w 1854 roku}
+      \end{figure}
+    }
+    \only<3>{
+      \begin{figure}
+        \includegraphics[scale=0.4]{3d-tesselation-cosmic-structure}
+        \caption{Trójwymiarowa tesselacja wykorzystana do przedstawienia struktury kosmicznej we wszechświecie}
+      \end{figure}
+    }
+  \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Źródła}
-  \begin{thebibliography}{4}
-    \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
-    \bibitem{2} \url{https://jacquesheunis.com/post/fortunes-algorithm/}
-    \bibitem{3} \url{https://cs.sfu.ca/~binay/813.2011/Fortune.pdf}
-    \bibitem{4} \url{https://blog.ivank.net/fortunes-algorithm-and-implementation.html}
-  \end{thebibliography}
+
+  \only<1>{
+    \begin{thebibliography}{9}
+      \bibitem{1} \url{https://mathworld.wolfram.com/Triangulation.html}
+      \bibitem{2} \url{https://en.wikipedia.org/wiki/Triangulation_(disambiguation)}
+      \bibitem{3} \url{https://en.wikipedia.org/wiki/Planar_graph}
+      \bibitem{4} \url{https://en.wikipedia.org/wiki/Chordal_graph}
+      \bibitem{5} \url{https://en.wikipedia.org/wiki/Simplex}
+      \bibitem{6} \url{https://facultyweb.kennesaw.edu/mlavrov/courses/graph-theory/lecture21.pdf}
+      \bibitem{7} \url{https://mathworld.wolfram.com/Goldner-HararyGraph.html}
+      \bibitem{8} \url{https://en.wikipedia.org/wiki/Voronoi_diagram}
+      \bibitem{9} \url{https://en.wikipedia.org/wiki/Tessellation}
+    \end{thebibliography}
+  }
+  \only<2>{
+    \begin{thebibliography}{9}
+      \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
+      \bibitem{2} \url{https://jacquesheunis.com/post/fortunes-algorithm/}
+      \bibitem{3} \url{https://cs.sfu.ca/~binay/813.2011/Fortune.pdf}
+      \bibitem{4} \url{https://blog.ivank.net/fortunes-algorithm-and-implementation.html}
+      \bibitem{5} \url{https://en.wikipedia.org/wiki/Delaunay_triangulation}
+      \bibitem{6} \url{https://ianthehenry.com/posts/delaunay/}
+      \bibitem{7} \url{https://plus.maths.org/content/uncovering-cause-cholera}
+      \bibitem{8} \url{https://www.researchgate.net/publication/221909127_Finite_Element_Analysis_in_Orthopaedic_Biomechanics}
+      \bibitem{9} \url{https://www.astro.rug.nl/~weygaert/tim1publication/vorwey.isvd07.pdf}
+    \end{thebibliography}
+  }
 \end{frame}
 
 \end{document}
