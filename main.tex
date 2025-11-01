@@ -417,16 +417,57 @@
 \begin{frame}
   \frametitle{Algorytm Fortune'a}
   Algorytm Fortune'a to \textbf{algorytm zamiatający} (\textit{sweep line algorithm}), pozwalający na efektywne tworzenie diagramów Voronoi w czasie $O(n \log n)$ wykorzystując $O(n)$ pamięci dla $n$ punktów wejściowych.
+\end{frame}
 
-  \pause
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - pojęcia}
   Pojęcia kluczowe dla zrozumienia algorytmu:
   \begin{itemize}
     \item \textbf{Linia zamiatająca} (\textit{sweep line}) - linia prosta, przesuwająca się wzdłuż płaszczyzny, przetwarzająca punkty wejściowe.
-    \item \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez łuki parabol, reprezentująca granicę między obszarami już przetworzonymi a tymi, które jeszcze nie zostały przetworzone.
-    \item \textbf{Zdarzenia} - punkty, w których linia zamiatająca napotyka punkty lub miejsca, w których zaniknie łuk paraboliczny na linii plażowej.
+    \item \textbf{Linia plażowa} (\textit{beach line}) - krzywa utworzona przez punty równoodległe od linii zamiatającej i najbliżesz z punktów już przetworzonych. Składa się z łuków parabolicznych.
+    \item Zdarzenia
+      \begin{itemize}
+        \item \textbf{Zdarzenia punktowe} (\textit{point events}) - miejsca, w których linia zamiatająca napotyka punkty wejściowe.
+        \item \textbf{Zdarzenia wierzchołkowe} (\textit{vertex events}) - miejsca, w których zanikają łuki paraboliczne na linii plażowej.
+      \end{itemize}
   \end{itemize}
   \begin{center}
-    \includegraphics[scale=0.5]{sweep-beach-line.png}
+    \begin{figure}
+      \includegraphics[scale=0.4]{sweep-beach-line}
+      \caption{Linia zamiatająca i linia plażowa}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - zasada działania}
+  \begin{itemize}
+    \item Punkty znajdujące się \textbf{za linią zamiatającą nie mają wpływu na kształt linii plażowej}, gdyż nigdy nie będą spełniać warunku bycia najbliższym punktem dla żadnego punktu przed linią zamiatającą.
+      \pause
+    \item W trakcie działania algorytmu przesuwana jest linia zamiatająca wzdłuż płaszczyzny. Gdy \textbf{linia napotyka nowy punkt, tworzony jest nowy łuk paraboliczny} na linii plażowej, ponieważ ten punkt staje się najbliższym punktem dla pewnego obszaru przed linią zamiatającą. Zdarzenie to nazywane jest zdarzeniem punktowym.
+  \end{itemize}
+
+  \begin{center}
+    \begin{figure}
+      \includegraphics[scale=0.5]{point-event}
+      \caption{Zdarzenie punktowe - dodanie nowego łuku parabolicznego}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - zasada działania}
+  \begin{itemize}
+    \item W trakcie przesuwania lini zamiatającej, łuki paraboliczne tworzące linię plażową będą się zmieniać. Gdy \textbf{linia zamiatająca osiągnie punkt, w którym trzy łuki paraboliczne stykają się w jednym punkcie, środkowy łuk zniknie}, a dwa pozostałe połączą się. Zdarzenie to nazywane jest zdarzeniem wierzchołkowym.
+      \pause
+    \item Efektem zdarzenia wierzchołkowego jest \textbf{utworzenie nowego wierzchołka diagramu Voronoi}, ponieważ punkt styku trzech łuków parabolicznych jest równoodległy od trzech punktów wejściowych.
+  \end{itemize}
+
+  \begin{center}
+    \begin{figure}
+      \includegraphics[scale=0.7]{vertex-event}
+      \caption{Zdarzenie wierzchołkowe}
+    \end{figure}
   \end{center}
 \end{frame}
 
@@ -445,6 +486,45 @@
       \caption{Przykład działania algorytmu Fortune'a}
     \end{figure}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - ilość paraboli na linii plażowej}
+  Jak można zauważyć na przedstawionym przykładzie, każde zdarzenie punktowe powoduje dodanie nowego łuku parabolicznego na linii plażowej, jednocześnie mogąc powodować podział istniejącego łuku na dwa mniejsze łuki. W takim przypadku \textbf{zdarzenie punktowe może powodować zwiększenie liczby łuków na linii plażowej o maksymalnie dwa.}
+  Warto zauważyć, że dla pierwszego punktu zawsze tworzony jest dokładnie jeden łuk paraboliczny.
+
+  \pause
+  \begin{theorem}
+    Dla zbioru $n$ punktów wejściowych, linia plażowa w algorytmie Fortune'a może składać się z maksymalnie $2n - 1$ łuków parabolicznych. \qed
+  \end{theorem}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - struktury danych}
+  Algorytm Fortune'a wykorzystuje dwie główne struktury danych:
+  \begin{itemize}
+    \item \textbf{Kolejka priorytetowa} - przechowuje zdarzenia punktowe i wierzchołkowe, posortowane według ich pozycji na osi wzdłuż której przesuwa się linia zamiatająca.
+      \pause
+    \item \textbf{Drzewo binarne} - reprezentuje linię plażową, przechowując łuki paraboliczne w kolejności od lewej do prawej jako węzły drzewa.
+  \end{itemize}
+
+  \begin{center}
+    \begin{figure}
+      \includegraphics[scale=0.8]{beach-line-binary-tree}
+      \caption{Wizualizacja linii plażowej jako drzewa binarnego}
+    \end{figure}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - pseudokod}
+
+  \begin{algorithm}[H]
+    \caption{Algorytm Fortune'a}
+    \begin{algorithmic}
+      \State Initialize event queue with site events
+    \end{algorithmic}
+  \end{algorithm}
 \end{frame}
 
 \begin{frame}
@@ -468,6 +548,7 @@
     \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
     \bibitem{2} \url{https://jacquesheunis.com/post/fortunes-algorithm/}
     \bibitem{3} \url{https://cs.sfu.ca/~binay/813.2011/Fortune.pdf}
+    \bibitem{4} \url{https://blog.ivank.net/fortunes-algorithm-and-implementation.html}
   \end{thebibliography}
 \end{frame}
 
