@@ -380,15 +380,15 @@
             \pgfmathsetmacro{\minDist}{min(min(min(\distRed, \distBlue), min(\distGreen, \distYellow)), \distPurple)}
 
             \ifdim \minDist pt = \distRed pt
-            \fill[red!50] (\x, \y) rectangle (\x+1, \y+1);
+            \fill[red!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
             \else\ifdim \minDist pt = \distBlue pt
-            \fill[blue!50] (\x, \y) rectangle (\x+1, \y+1);
+            \fill[blue!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
             \else\ifdim \minDist pt = \distGreen pt
-            \fill[green!50] (\x, \y) rectangle (\x+1, \y+1);
+            \fill[green!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
             \else\ifdim \minDist pt = \distYellow pt
-            \fill[yellow!50] (\x, \y) rectangle (\x+1, \y+1);
+            \fill[yellow!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
             \else
-            \fill[purple!50] (\x, \y) rectangle (\x+1, \y+1);
+            \fill[purple!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
             \fi\fi\fi\fi
           }
         }
