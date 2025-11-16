@@ -19,35 +19,23 @@
 
 \frame{\titlepage}
 
-\subsection{Triangulacja w geometrii}
+\subsection{Triangulacja}
 \begin{frame}
-  \frametitle{Triangulacja w geometrii}
+  \frametitle{Triangulacja}
   \begin{definition}
-    Sympleks to uogólnienie trójkąta i czworościanu na dowolne wymiary. Są to najprostsze możliwe obiekty geometryczne w danym wymiarze.
-  \end{definition}
+    Triangulacja to podział płaszczyzny euklidesowej na trójkąty.
 
-  \pause
-  Dla przykładu:
-  \begin{itemize}
-    \item 0-wymiarowy sympleks to punkt,
-    \item 1-wymiarowy sympleks to odcinek,
-    \item 2-wymiarowy sympleks to trójkąt,
-    \item 3-wymiarowy sympleks to czworościan,
-  \end{itemize}
-\end{frame}
+    Zazwyczaj wymagane jest, aby krawędzie i wierzchołki sympleksów pokrywały się w całości z krawędziami i wierzchołkami innych sympleksów.
 
-\begin{frame}
-  \frametitle{Triangulacja w geometrii}
-  \begin{definition}
-    Triangulacja to podział płaszczyzny euklidesowej na trójkąty. W ogólności mówi się o podziale przestrzeni euklidesowej na sympleksy odpowiedniego wymiaru.
+    Każdy wielokąt można w procesie triangulacji podzielić na trójkąty.
 
     \pause
-    Zazwyczaj wymagane jest, aby krawędzie i wierzchołki sympleksów pokrywały się w całości z krawędziami i wierzchołkami innych sympleksów.
+    \textit{Powyższa definicja odnosi się do dwuwymiarowej przestrzeni euklidesowej. Triangulację można przeprowadzić także w przestrzeniach wyższych wymiarów, jednak w ramach tej prezentacji skupimy się na przestrzeni dwuwymiarowej.}
   \end{definition}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Triangulacja w geometrii - przykład dwuwymiarowy}
+  \frametitle{Triangulacja - przykład}
   \begin{center}
     \begin{figure}
       \begin{tikzpicture}
@@ -67,193 +55,51 @@
         \draw (8.9, 3.7) -- (6.6, 3.4) -- (8.5, 2.9) -- cycle;
         \draw (8.9, 3.7) -- (8.5, 2.9) -- (10.5, 1.5) -- cycle;
       \end{tikzpicture}
-      \caption{Podział płaszczyzny na trójkąty}
+      \caption{Podział wielokąta na trójkąty}
     \end{figure}
   \end{center}
 \end{frame}
 
+\subsection{Problem galerii sztuki}
 \begin{frame}
-  \frametitle{Triangulacja w geometrii - przykład trójwymiarowy}
-  \begin{center}
-    \begin{figure}
-      \includegraphics[scale=0.5]{3d-triangulation}
-      \caption{Podział bryły na czworościany}
-    \end{figure}
-  \end{center}
-\end{frame}
-
-\subsection{Triangulacja w teorii grafów}
-\begin{frame}
-  \frametitle{Triangulacja w teorii grafów}
+  \frametitle{Problem galerii sztuki}
   \begin{definition}
-    Graf planarny to graf, który można narysować na płaszczyźnie w taki sposób, że jego krawędzie nie przecinają się ze sobą.
-  \end{definition}
+    Problem galerii sztuki to problem optymalizacyjny polegający na określeniu minimalnej liczby punktów obserwacyjnych (strażników) potrzebnych do monitorowania całego obszaru galerii sztuki.
 
-  \begin{example}
-    \begin{center}
-      \begin{figure}
-        \begin{tikzpicture}[scale=0.7]
-          \node[circle, draw, fill=blue!20, label=left:{$v_1$}] (v1) at (2,3) {};
-          \node[circle, draw, fill=blue!20, label=below:{$v_2$}] (v2) at (2,0) {};
-          \node[circle, draw, fill=blue!20, label=below:{$v_3$}] (v3) at (0,-2) {};
-          \node[circle, draw, fill=blue!20, label=left:{$v_4$}] (v4) at (-2,-1) {};
-          \node[circle, draw, fill=blue!20, label=below:{$v_5$}] (v5) at (5,0) {};
-          \node[circle, draw, fill=blue!20, label=left:{$v_6$}] (v6) at (-2,2) {};
-
-          \coordinate (ctrl-5-6) at (2,4);
-
-          \draw (v1) -- (v2);
-          \draw (v1) -- (v5);
-          \draw (v2) -- (v3);
-          \draw (v2) -- (v4);
-          \draw (v2) -- (v5);
-          \draw (v3) -- (v4);
-          \draw (v4) -- (v1);
-          \draw (v4) -- (v6);
-          \draw (v5) to[out=90, in=0] (ctrl-5-6) to[out=180, in=90] (v6);
-        \end{tikzpicture}
-        \caption{Przykład grafu planarnego}
-      \end{figure}
-    \end{center}
-  \end{example}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Triangulacja w teorii grafów}
-  \begin{definition}
-    Maksymalny graf planarny to \textbf{graf planarny, do którego nie można dodać żadnej krawędzi bez utraty własności planarnych}. W maksymalnym grafie planarnym każda ściana jest trójkątem (wliczając ścianę zewnętrzną).
+    \pause
+    Galerię sztuki modeluje się jako prosty wielokąt, a strażników jako punkty wewnątrz tego wielokąta. Zbiór $S$ punktów obserwacyjnych uważamy za pokrywający wielokąt $P$, jeśli dla każdego punktu wewnątrz $P$ istnieje punkt w $S$ taki, że odcinek łączący te dwa punkty nie przecina krawędzi wielokąta $P$.
   \end{definition}
 
   \pause
-  \begin{definition}
-    Triangulacja to \textbf{proces tworzenia grafu maksymalnie planarnego ze zbioru punktów}.
-  \end{definition}
+  \begin{figure}
+    \includegraphics[scale=0.3]{art-gallery-problem}
+    \caption{Czterech strażników monitorujących całą galerię sztuki}
+  \end{figure}
+\end{frame}
 
-  \pause
-  \begin{theorem}
-    Jeśli maksymalny graf planarny ma $n$ wierzchołków, gdzie $n \geq 3$, to ma dokładnie $3n - 6$ krawędzi i $2n - 4$ ścian. \qed
+\begin{frame}
+  \frametitle{Problem galerii sztuki}
+
+  \begin{theorem}[Twierdzenie Chvátala]
+    Aby cały prosty wielokąt z $n$ wierzchołkami był monitorowany, zawsze wystarczy co najwyżej $\lfloor n/3 \rfloor$ strażników. \qed
   \end{theorem}
-\end{frame}
 
-\begin{frame}
-  \frametitle{Triangulacja w teorii grafów - przykład}
-  \begin{center}
+  \only<2>{
+    Powyższe twierdzenie wynika z faktu, że w procesie triangulacji każdy wielokąt prosty możemy podzielić na trójkąty. Strażnik umieszczony w wierzchołku trójkąta może monitorować cały ten trójkąt. Jeśli \textbf{pokolorujemy wierzchołki triangulacji na trzy kolory}, to każdy z kolorów będzie występował dokładnie raz w każdym trójkącie. Wybieramy zatem kolor występujący najrzadziej, uzyskując w ten sposób zbiór $\lfloor n/3 \rfloor$ punktów.
+  }
+  \only<3>{
     \begin{figure}
-      \begin{tikzpicture}[scale=0.5]
-        \node[circle, draw, fill=blue!20, label=left:{$v_1$}] (v1) at (0,5) {};
-        \node[circle, draw, fill=blue!20, label=right:{$v_2$}] (v2) at (0,0) {};
-        \node[circle, draw, fill=blue!20, label=left:{$v_3$}] (v3) at (0,-5) {};
-        \node[circle, draw, fill=blue!20, label=above:{$v_4$}] (v4) at (2,2) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_5$}] (v5) at (2,-2) {};
-        \node[circle, draw, fill=blue!20, label=right:{$v_6$}] (v6) at (-2,2) {};
-        \node[circle, draw, fill=blue!20, label=left:{$v_7$}] (v7) at (-2,-2) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_8$}] (v8) at (-6,0) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_9$}] (v9) at (6,0) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_{10}$}] (v10) at (-9,0) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_{11}$}] (v11) at (9,0) {};
-
-        \coordinate (ctrl-1-3) at (11, 0);
-
-        \pause
-        \draw (v1) -- (v6);
-        \pause
-        \draw (v1) -- (v2);
-        \draw (v2) -- (v6);
-        \pause
-        \draw (v1) to[out=0, in=90] (ctrl-1-3) to[out=-90, in=0] (v3);
-        \draw (v1) -- (v4);
-        \draw (v1) -- (v8);
-        \draw (v1) -- (v9);
-        \draw (v1) -- (v10);
-        \draw (v1) -- (v11);
-        \draw (v2) -- (v3);
-        \draw (v2) -- (v4);
-        \draw (v2) -- (v5);
-        \draw (v2) -- (v7);
-        \draw (v2) -- (v8);
-        \draw (v2) -- (v9);
-        \draw (v3) -- (v5);
-        \draw (v3) -- (v7);
-        \draw (v3) -- (v8);
-        \draw (v3) -- (v9);
-        \draw (v3) -- (v10);
-        \draw (v3) -- (v11);
-        \draw (v4) -- (v9);
-        \draw (v5) -- (v9);
-        \draw (v6) -- (v8);
-        \draw (v7) -- (v8);
-        \draw (v8) -- (v10);
-        \draw (v9) -- (v11);
-
-        \pause
-        \draw[fill=blue!30, draw=black] (0,5) -- (0,0) -- (-2,2) -- cycle;
-        \node[fill=white] at (0,-2) {Wszystkie ściany są trójkątami (także zewnętrzna)};
-      \end{tikzpicture}
-      \caption{Graf Goldnera-Harary'ego - przykład grafu maksymalnie planarnego o 11 wierzchołkach i 27 krawędziach}
+      \includegraphics[scale=0.1]{3-coloring}
+      \caption{Trójkolorowanie wierzchołków triangulacji wielokąta - niebieskie punkty to strażnicy}
     \end{figure}
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Triangulacja w teorii grafów}
-  \begin{definition}
-    Cykl indukowany to taki cykl w grafie, że żadne dwa jego wierzchołki nie są połączone krawędzią, która nie należy do cyklu.
-  \end{definition}
-
-  \begin{definition}
-    Graf cięciwowy to graf, w którym każdy \textbf{cykl o długości czterech lub większej ma przekątną}, czyli krawędź łączącą dwa niekolejne wierzchołki cyklu.
-
-    W grafie takim cykle indukowane mają zawsze długość 3.
-  \end{definition}
-  \pause
-  \begin{definition}
-    Triangulacja to proces dodawania krawędzi do grafu w celu \textbf{otrzymania grafu cięciwowego}.
-  \end{definition}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Triangulacja w teorii grafów - przykład}
-  \begin{center}
-    \begin{figure}
-      \begin{tikzpicture}[scale=1.0]
-        \node[circle, draw, fill=blue!20, label=left:{$v_1$}] (v1) at (0,1) {};
-        \node[circle, draw, fill=blue!20, label=above:{$v_2$}] (v2) at (-2,0) {};
-        \node[circle, draw, fill=blue!20, label=above:{$v_3$}] (v3) at (-1,-2) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_4$}] (v4) at (1.5,-2) {};
-        \node[circle, draw, fill=blue!20, label=below:{$v_5$}] (v5) at (3,0) {};
-
-        \draw (v1) -- (-0.5, 2);
-        \draw (v1) -- (v2);
-        \draw (v2) -- (-3, 0.25);
-        \draw (v2) -- (v3);
-        \draw (v3) -- (-2, -2.25);
-        \draw (v3) -- (-1.75, -2.75);
-        \draw (v3)-- (-0.5, -2.75);
-        \draw (v3) -- (v4);
-        \draw (v4) -- (2, -2.75);
-        \draw (v4) -- (v5);
-        \draw (v5) -- (4, -0.5);
-        \draw (v5) -- (3.25, 0.75);
-        \draw (v5) -- (v1);
-
-        \pause
-        \draw[very thick, color=green] (v1) -- (v3);
-        \draw[very thick, color=green] (v1) -- (v4);
-
-        \pause
-        \draw[very thick, draw=red] (0,1) -- (-2,0) -- (-1,-2) -- cycle;
-
-      \end{tikzpicture}
-      \caption{Przykład triangulacji grafu poprzez dodanie krawędzi $(v_1, v_3)$ oraz $(v_1, v_4)$. W procesie tym powstały trzy cykle indukowane o długości 3.}
-    \end{figure}
-  \end{center}
+  }
 \end{frame}
 
 \subsection{Diagramy Voronoi}
 \begin{frame}
   \frametitle{Diagramy Voronoi}
   \begin{definition}
-    Tesselacja to pokrycie płaszczyzny za pomocą wielokątów przylegających do siebie oraz nie nakładających się.
+    Teselacja to pokrycie płaszczyzny za pomocą wielokątów przylegających do siebie oraz nie nakładających się.
   \end{definition}
 
   \begin{definition}
@@ -324,103 +170,34 @@
   \end{center}
 \end{frame}
 
-\subsection{Diagramy Voronoi - algorytmy tworzenia}
 \begin{frame}
   \frametitle{Diagramy Voronoi - algorytmy tworzenia}
   Do najpopularniejszych sposobów tworzenia diagramów Voronoi należą:
   \begin{itemize}
-    \item \color<1>{violet}{\textbf{Rastrowy brute force} - dla każdej komórki siatki obliczana jest odległość do każdego punktu ze zbioru $P$, a komórka jest przypisywana do najbliższego punktu. Czas działania: $O(mn)$, gdzie $m$ to liczba komórek siatki, a $n$ to liczba punktów w zbiorze $P$.}
+    \item \color<1>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm zamiatający - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przetworzone, tworzony jest diagram Voronoi.}
       \pause
-    \item \color<2>{violet}{\textbf{Algorytm Fortune'a} - najczęściej stosowany, pozwala na zbudowanie diagramu Voronoi w czasie $O(n \log n)$ dla $n$ punktów wejściowych. Jest to algorytm zamiatający - linia omija zbiór punktów w określonym kierunku, a kiedy wszystkie punkty zostaną przetworzone, tworzony jest diagram Voronoi.}
-      \pause
-    \item \color<3>{violet}{\textbf{Obliczanie triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Voronoi na jej podstawie. Złożoność: $O(n \log n)$.}
+    \item \color<2>{violet}{\textbf{Obliczanie triangulacji Delaunaya} (\textit{Delone}) i tworzenie diagramu Voronoi na jej podstawie. Złożoność: $O(n \log n)$.}
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Diagramy Voronoi - Rastrowy brute force}
-
-  \begin{algorithm}[H]
-    \caption{Rastrowy brute force dla diagramu Voronoi}
-    \begin{algorithmic}
-      \Function{voronoiBruteForce}{siatka, punkty}
-      \For{each komórka $c$ in siatka}
-      \State $minimalnyDystans \gets \infty$
-      \State $najbliższyPunkt \gets null$
-      \For{each punkt $p$ in punkty}
-      \State $dystans \gets d(c, p)$
-      \If{$dystans < minimalnyDystans$}
-      \State $minimalnyDystans \gets dystans$
-      \State $najbliższyPunkt \gets p$
-      \EndIf
-      \EndFor
-      \State przypisz komórkę $c$ do $najbliższyPunkt$
-      \EndFor
-      \State \Return siatka
-      \EndFunction
-    \end{algorithmic}
-  \end{algorithm}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Diagramy Voronoi - Rastrowy brute force}
-
-  \begin{center}
-    \begin{figure}
-      \begin{tikzpicture}[scale=0.5]
-        \foreach \x in {0,1,...,19} {
-          \foreach \y in {0,1,...,9} {
-            \fill[gray!20] (\x, \y) rectangle (\x+1, \y+1);
-          }
-        }
-
-        \foreach \x in {0,1,...,19} {
-          \foreach \y in {0,1,...,9} {
-            \pgfmathsetmacro{\distRed}{sqrt((\x+0.5-3)^2 + (\y+0.5-7)^2)}
-            \pgfmathsetmacro{\distBlue}{sqrt((\x+0.5-9)^2 + (\y+0.5-8)^2)}
-            \pgfmathsetmacro{\distGreen}{sqrt((\x+0.5-15)^2 + (\y+0.5-6)^2)}
-            \pgfmathsetmacro{\distYellow}{sqrt((\x+0.5-13)^2 + (\y+0.5-2)^2)}
-            \pgfmathsetmacro{\distPurple}{sqrt((\x+0.5-6)^2 + (\y+0.5-3)^2)}
-
-            \pgfmathsetmacro{\minDist}{min(min(min(\distRed, \distBlue), min(\distGreen, \distYellow)), \distPurple)}
-
-            \ifdim \minDist pt = \distRed pt
-            \fill[red!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
-            \else\ifdim \minDist pt = \distBlue pt
-            \fill[blue!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
-            \else\ifdim \minDist pt = \distGreen pt
-            \fill[green!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
-            \else\ifdim \minDist pt = \distYellow pt
-            \fill[yellow!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
-            \else
-            \fill[purple!50] (\x+0.02, \y+0.02) rectangle (\x+0.98, \y+0.98);
-            \fi\fi\fi\fi
-          }
-        }
-
-        \fill[red!80!black] (3, 7) circle (0.4);
-        \draw[white, very thick] (3, 7) circle (0.4);
-
-        \fill[blue!80!black] (9, 8) circle (0.4);
-        \draw[white, very thick] (9, 8) circle (0.4);
-
-        \fill[green!60!black] (15, 6) circle (0.4);
-        \draw[white, very thick] (15, 6) circle (0.4);
-
-        \fill[yellow!80!orange] (13, 2) circle (0.4);
-        \draw[black, very thick] (13, 2) circle (0.4);
-
-        \fill[purple!80!black] (6, 3) circle (0.4);
-        \draw[white, very thick] (6, 3) circle (0.4);
-      \end{tikzpicture}
-      \caption{Wizualizacja działania algorytmu rastrowego brute force dla siatki 20x10 oraz 5 punktów. Wykorzystano metrykę euklidesową.}
-    \end{figure}
-  \end{center}
-\end{frame}
-
+\subsection{Algorytm Fortune'a}
 \begin{frame}
   \frametitle{Algorytm Fortune'a}
   Algorytm Fortune'a to \textbf{algorytm zamiatający} (\textit{sweep line algorithm}), pozwalający na efektywne tworzenie diagramów Voronoi w czasie $O(n \log n)$ wykorzystując $O(n)$ pamięci dla $n$ punktów wejściowych.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Algorytm Fortune'a - zasada działania}
+
+  \begin{definition}
+    Parabola to krzywa będąca zbiorem punktów równoodległych od prostej zwanej kierownicą paraboli i punktu zwanego ogniskiem paraboli.
+  \end{definition}
+
+  \pause
+  \begin{figure}
+    \includegraphics[scale=0.1]{parabola}
+    \caption{Wizualizacja paraboli jako zbioru punktów równoodległych od prostej $l$ oraz punktu $F$}
+  \end{figure}
 \end{frame}
 
 \begin{frame}
@@ -443,7 +220,6 @@
   \end{center}
 \end{frame}
 
-\subsection{Algorytm Fortune'a}
 \begin{frame}
   \frametitle{Algorytm Fortune'a - zasada działania}
   \begin{itemize}
@@ -477,7 +253,7 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Algorytm Fortune'a}
+  \frametitle{Algorytm Fortune'a - animacja}
   \begin{center}
     \begin{figure}
       \includegraphics<1>[scale=0.4]{fortunes-animation-0}
@@ -488,7 +264,7 @@
       \includegraphics<6>[scale=0.4]{fortunes-animation-5}
       \includegraphics<7>[scale=0.4]{fortunes-animation-6}
       \includegraphics<8>[scale=0.4]{fortunes-animation-7}
-      \caption{Przykład działania algorytmu Fortune'a}
+      \caption{Przykład działania algorytmu Fortune'a - animacja dostępna pod adresem: \url{https://jacquesheunis.com/post/fortunes-algorithm/}}
     \end{figure}
   \end{center}
 \end{frame}
@@ -590,7 +366,7 @@
   \frametitle{Algorytm Fortune'a - oszacowanie złożoności i dowód}
 
   \begin{theorem}
-    Każdy wierzchołek diagramu Voronoi jest stopnia trzeciego. \qed
+    Każdy wierzchołek diagramu Voronoi jest co najmniej stopnia trzeciego. \qed
   \end{theorem}
 
   \begin{theorem}
@@ -651,14 +427,23 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Triangulacja Delaunaya - związek z diagramem Voronoi}
-  \begin{definition}
-    \textbf{Graf dualny} to graf utworzony z innego grafu poprzez umieszczenie wierzchołka w każdej ścianie oryginalnego grafu oraz połączenie tych wierzchołków krawędziami, jeśli ich odpowiadające ściany w oryginalnym grafie sąsiadują ze sobą.
-  \end{definition}
+  \frametitle{Triangulacja Delaunaya - algorytm Bowyera-Watsona}
+  Jednym z algorytmów tworzenia triangulacji Delaunaya jest \textbf{algorytm Bowyera-Watsona}. Jest to algorytm przyrostowy, który działa poprzez dodawanie punktów jeden po drugim do triangulacji Delaunaya.
+  \pause
+
+  Po wstawieniu każdego punktu, wszystkie trójkąty, których okręgi opisane zawierają nowy punkt, są usuwane. Powstała luka jest następnie ponownie triangulowana z nowym punktem jako jednym z wierzchołków.
 
   \pause
+  Algorytm ten ma średnią złożoność czasową równą $O(n \log n)$ oraz $O(n^2)$ w pesymistycznym przypadku dla $n$ punktów wejściowych.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Triangulacja Delaunaya - związek z diagramem Voronoi}
+
+  Środek okręgu opisanego na trójkącie jest równoodległy od wszystkich trzech wierzchołków trójkąta. W takim razie jest to punkt, w którym trzy komórki Voronoi stykają się ze sobą. Wynika z tego bardzo ważna własność triangulacji Delaunaya i diagramu Voronoi:
+  \pause
   \begin{theorem}
-    Triangulacja Delaunaya dla zbioru punktów $P$ jest grafem dualnym diagramu Voronoi utworzonego z tego samego zbioru punktów $P$. \qed
+    Jeśli dwa trójkąty w triangulacji Delaunaya mają wspólną krawędź, to środki okręgów opisanych na tych trójkątach łączy się krawędzią w diagramie Voronoi. \qed
   \end{theorem}
 \end{frame}
 
@@ -669,7 +454,7 @@
       \includegraphics<1>[scale=0.19]{delaunay-1}
       \includegraphics<2>[scale=0.19]{delaunay-2}
       \only<1>{\caption{Triangulacja Delaunaya z zaznaczonymi na czerwono środkami okręgów opisanych na trójkątach}}
-      \only<2>{\caption{Graf dualny triangulacji Delaunaya, czyli diagram Voronoi - zaznaczony na czerwono}}
+      \only<2>{\caption{Po połączeniu środków okręgów opisanych na stykających się trójkątach powstaje diagram Voronoi - zaznaczony na czerwono}}
     \end{figure}
   \end{center}
 \end{frame}
@@ -727,7 +512,7 @@
     \end{thebibliography}
   }
   \only<2>{
-    \begin{thebibliography}{9}
+    \begin{thebibliography}{8}
       \bibitem{1} \url{https://www.math.us.edu.pl/lsim2014/MSerwecinska-lsim2014.pdf}
       \bibitem{2} \url{https://jacquesheunis.com/post/fortunes-algorithm/}
       \bibitem{3} \url{https://cs.sfu.ca/~binay/813.2011/Fortune.pdf}
@@ -736,7 +521,13 @@
       \bibitem{6} \url{https://ianthehenry.com/posts/delaunay/}
       \bibitem{7} \url{https://plus.maths.org/content/uncovering-cause-cholera}
       \bibitem{8} \url{https://www.researchgate.net/publication/221909127_Finite_Element_Analysis_in_Orthopaedic_Biomechanics}
-      \bibitem{9} \url{https://www.astro.rug.nl/~weygaert/tim1publication/vorwey.isvd07.pdf}
+    \end{thebibliography}
+  }
+  \only<3>{
+    \begin{thebibliography}{3}
+      \bibitem{1} \url{https://www.astro.rug.nl/~weygaert/tim1publication/vorwey.isvd07.pdf}
+      \bibitem{2} \url{https://en.wikipedia.org/wiki/Bowyer-Watson_algorithm}
+      \bibitem{3} \url{https://en.wikipedia.org/wiki/Art_gallery_problem}
     \end{thebibliography}
   }
 \end{frame}
