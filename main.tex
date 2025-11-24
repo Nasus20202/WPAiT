@@ -25,7 +25,7 @@
   \begin{definition}
     Triangulacja to podział płaszczyzny euklidesowej na trójkąty.
 
-    Zazwyczaj wymagane jest, aby krawędzie i wierzchołki sympleksów pokrywały się w całości z krawędziami i wierzchołkami innych sympleksów.
+    Zazwyczaj wymagane jest, aby krawędzie i wierzchołki trójkątów pokrywały się w całości z krawędziami i wierzchołkami innych trójkątów.
 
     Każdy wielokąt można w procesie triangulacji podzielić na trójkąty.
 
@@ -380,7 +380,7 @@
     \begin{proof}
       Niech $V$ będzie liczbą wierzchołków, $E$ liczbą krawędzi, a $N$ liczbą ścian diagramu Voronoi.
 
-      Ponieważ diagram Voronoi posiada nieskończone ściany, \textbf{dodajemy do niego sztuczny wierzchołek} i łączymy go z wszystkimi nieskończonymi krawędziami, tworząc nowy graf planarny. Z \textbf{wzoru Eulera dla grafów planarnych} mamy $V - E + N = 2$. W takim razie $(V + 1) - E + N = 2$.
+      Ponieważ diagram Voronoi posiada nieskończone ściany, \textbf{dodajemy do niego sztuczny wierzchołek} i łączymy go z wszystkimi nieskończonymi krawędziami, tworząc nowy graf planarny. Z \textbf{wzoru Eulera dla grafów planarnych} mamy $(V + 1) - E + N = 2$ ($V + 1$, ponieważ dodaliśmy nowy wierzchołek).
       \pause
 
       Każdy \textbf{wierzchołek diagramu Voronoi ma stopień co najmniej 3}, więc $3(V + 1) \leq 2E$. Po prostych przekształceniach otrzymujemy $V \leq 2N - 5$ oraz $E \leq 3N - 6$.
